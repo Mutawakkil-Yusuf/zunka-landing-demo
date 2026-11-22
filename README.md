@@ -72,6 +72,10 @@ Each choice below is deliberate. Where the reference and the design kit disagree
   briefly on press. No WebGL context, so it remains reliable on mobile.
 - **Living mocks.** The product window and four feature panels run slow, transform-only loops while
   on screen and rest when they scroll away. The pause controls are removed for now.
+- **The screens.** The three phones are built as detailed app screens in live HTML — a status bar,
+  an onboarding hero with geometric artwork, a home dashboard with search, chips and a card grid,
+  and a checkout with an order summary and total. They stay crisp at every size and need no image
+  files or network requests.
 - **A playable mock.** The page behaves like the plugin it sells. Click a layer to inspect its frame;
   drag the layers, or use the arrow keys, to reorder the flow — the canvas, the flow card and the
   export list all follow. Pick a component variant and every screen changes with it. Export produces
@@ -93,12 +97,14 @@ Each choice below is deliberate. Where the reference and the design kit disagree
   button visibility and reduced-motion states are all verified. No console errors.
 - Playground check — select, pointer drag, keyboard reorder, component sync, export download and
   reset all verified, including under reduced motion. The downloaded SVG carries the chosen order.
-- `consistency.mjs` — 16 FAIL and 21 WARN, the same reference conflicts as the committed baseline
-  (which had 16 FAIL and 22 WARN); two checks improved, none regressed.
-- `gate.mjs` — 17 FAIL, down from the baseline's 18. The findings are the deliberate differences
-  between the supplied reference and the kit's generic rules: three hero actions, wide mock panels
-  that read as bands, two headings sharing a screen near the footer, band text that starts on an
-  internal line, and a companion that sits outside the main flow. We kept the reference's look.
+- `consistency.mjs` — 16 FAIL and 22 WARN, the same reference conflicts as the committed baseline
+  (which had 16 FAIL and 22 WARN). The one new `nesting` finding is a false positive: its text is
+  inside a simulated app screen, not the page layout. It is waived in `.taste-skill/waivers.json`.
+- `gate.mjs` — **OPEN, 15 FAIL** after three rounds, down from the baseline's 18. The findings are
+  the deliberate differences between the supplied reference and the kit's generic rules: three hero
+  actions, wide mock panels that read as bands, two headings sharing a screen near the footer, band
+  text that starts on an internal line, and a companion that sits outside the main flow. We kept the
+  reference's look. The single waiver is listed above.
 
 ## Before this goes live
 

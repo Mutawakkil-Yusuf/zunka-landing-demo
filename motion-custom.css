@@ -73,10 +73,10 @@
 .zk-window__layers [data-screen].is-active { background: var(--p-accent); color: #0a0a0a; padding-left: 6px; border-radius: 4px; }
 .zk-phone { transition: outline-color 220ms ease, transform 260ms cubic-bezier(.2, .8, .2, 1); outline: 2px solid transparent; outline-offset: 2px; }
 .zk-phone.is-active { outline-color: var(--p-accent); transform: translateY(-4px); }
-.zk-window:hover .zk-phone__card, .zk-window:hover .zk-phone__row {
+.zk-window:hover .zk-feature-row, .zk-window:hover .zk-phone__row {
   animation: zk-rise 420ms cubic-bezier(.16, 1, .3, 1) both;
 }
-.zk-window:hover .zk-phone__card:nth-of-type(2) { animation-delay: 80ms; }
+.zk-window:hover .zk-feature-row + .zk-feature-row { animation-delay: 80ms; }
 .zk-window:hover .zk-phone__row:nth-of-type(2) { animation-delay: 80ms; }
 @keyframes zk-rise { from { transform: translateY(5px); opacity: .65; } to { transform: translateY(0); opacity: 1; } }
 
@@ -204,8 +204,7 @@ footer.closing.is-tapped .close__word { letter-spacing: -.015em; }
 @keyframes zk-select { 0%, 100% { background-color: #fff; } 12% { background-color: var(--p-accent); } }
 @keyframes zk-flow-travel { 0%, 100% { translate: 0 0; opacity: .6; } 50% { translate: 4px 0; opacity: 1; } }
 @keyframes zk-tick { 0%, 100% { scale: 1; } 50% { scale: 1.25; } }
-.zk-window.is-live .zk-phone__card { animation: zk-card-pulse 4.2s ease-in-out infinite; }
-.zk-window.is-live .zk-phone--b .zk-phone__card { animation-delay: .7s; }
+.zk-window.is-live .zk-feature-row { animation: zk-card-pulse 4.2s ease-in-out infinite; }
 .zk-window.is-live .zk-phone__grid i:nth-child(2) { animation: zk-tile-pulse 4.2s ease-in-out infinite 1s; }
 .zk-window.is-live .zk-phone__grid i:nth-child(4) { animation: zk-tile-pulse 4.2s ease-in-out infinite 2s; }
 .zk-window.is-live .zk-phone__cta { animation: zk-cta-pulse 4.2s ease-in-out infinite 1.4s; }
@@ -265,6 +264,6 @@ footer.closing.is-tapped .close__word { letter-spacing: -.015em; }
   }
   #hero-h:hover .zk-emoji--eyes, #hero-h:hover .zk-emoji--phone::after,
   #hero-h.is-tapped .zk-emoji--eyes, #hero-h.is-tapped .zk-emoji--phone::after,
-  .zk-window:hover .zk-phone__card, .zk-window:hover .zk-phone__row,
+  .zk-window:hover .zk-feature-row, .zk-window:hover .zk-phone__row,
   .card--open:hover .zk-flow b, .form.is-invalid .field:has([aria-invalid="true"]) { animation: none !important; }
 }

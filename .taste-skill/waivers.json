@@ -1,0 +1,7 @@
+[
+  {
+    "check": "nesting",
+    "target": "div.zk-phone.zk-phone--a",
+    "reason": "The text is inside a simulated app screen, not the page layout: a device frame inside the plugin mock is necessarily three boxes deep."
+  }
+]

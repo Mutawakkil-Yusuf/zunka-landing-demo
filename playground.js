@@ -182,9 +182,13 @@
     const cards = names.map((name, i) => `
       <g transform="translate(${32 + i * 152} 58)">
         <rect width="120" height="104" rx="10" fill="#ffffff" stroke="#d8d8d8"/>
-        <rect x="10" y="10" width="100" height="62" rx="6" fill="${fills[i]}"/>
-        <rect x="10" y="80" width="52" height="6" rx="3" fill="#0a0a0a"/>
-        <text x="10" y="98" font-family="monospace" font-size="10" fill="#4a4a4a">0${i + 1} ${name}</text>
+        <rect x="8" y="8" width="104" height="60" rx="6" fill="${fills[i]}"/>
+        <rect x="14" y="14" width="26" height="26" rx="6" fill="#0a0a0a" opacity=".7"/>
+        <rect x="48" y="17" width="46" height="4" rx="2" fill="#0a0a0a" opacity=".35"/>
+        <rect x="48" y="26" width="34" height="4" rx="2" fill="#0a0a0a" opacity=".22"/>
+        <rect x="14" y="76" width="50" height="5" rx="2" fill="#0a0a0a"/>
+        <rect x="14" y="86" width="78" height="4" rx="2" fill="#e4e4e4"/>
+        <text x="14" y="101" font-family="monospace" font-size="9" fill="#4a4a4a">0${i + 1} ${name}</text>
       </g>`).join('');
     return `<svg xmlns="http://www.w3.org/2000/svg" width="520" height="200" viewBox="0 0 520 200">
       <rect width="520" height="200" fill="#f2f2f2"/>
@@ -197,7 +201,12 @@
   const runExport = async () => {
     if (exported) return;
     exported = true;
-    thumbs.forEach((t, i) => { t.style.background = frames[order[i]]?.fill || '#e7e51e'; });
+    const thumbScreens = {
+      a: 'linear-gradient(180deg, #e7e51e 0 58%, #ffffff 58%)',
+      b: 'linear-gradient(180deg, #0a0a0a 0 14%, #f2f2f2 14% 44%, #e7e51e 44% 70%, #f2f2f2 70%)',
+      c: 'linear-gradient(180deg, #0a0a0a 0 14%, #f2f2f2 14% 74%, #e7e51e 74%)'
+    };
+    thumbs.forEach((t, i) => { t.style.background = thumbScreens[order[i]] || '#e7e51e'; });
     if (file.href.startsWith('blob:')) URL.revokeObjectURL(file.href);
     file.href = makeBlobUrl();
 

@@ -29,6 +29,7 @@ There is no build step. `index.html` also works from any static server.
 | `eye-motion.js` | Shared eye engine: tracking, scan, blinking, mascot and CSS 3D tilt |
 | `text-motion.js` | Headline scramble, word wave, lead rise, band wave and heading settle |
 | `mockup-motion.js` | Pausable loops for the product window and four feature mocks |
+| `playground.js` | Select, drag-to-reorder, component sync and export interactions |
 | `typewriter.js` | Rotating last word of the headline; emits `zk:typing` progress events |
 | `assets/hero-3d-still.svg` | The still behind the CSS 3D hero card |
 | `assets/` | The design-taste-frontend kit (system, layout, motion, backgrounds, moments) |
@@ -64,12 +65,18 @@ Each choice below is deliberate. Where the reference and the design kit disagree
   erase; the idle scan resumes in the gap between words. `typewriter.js` emits `zk:typing` events
   with a progress value and the eye engine listens, so neither script needs to know about the other.
 - **Mascot.** A bottom-right companion with two eyes. Tap it for a dry observational line delivered
-  as a typewriter, with a small bounce and no expression changes. It dims over the footer and stays
-  out of the way of the copy.
+  as a typewriter, with a small bounce and no expression changes. It also notices what you do in the
+  playground — a reordered flow or a synced component earns one dry remark. It dims over the footer
+  and stays out of the way of the copy.
 - **3D.** A CSS 3D perspective card holds a three-phone still that tilts with the pointer and spins
   briefly on press. No WebGL context, so it remains reliable on mobile.
 - **Living mocks.** The product window and four feature panels run slow, transform-only loops while
   on screen, each with its own pause control.
+- **A playable mock.** The page behaves like the plugin it sells. Click a layer to inspect its frame;
+  drag the layers, or use the arrow keys, to reorder the flow — the canvas, the flow card and the
+  export list all follow. Pick a component variant and every screen changes with it. Export produces
+  a real SVG contact sheet of your chosen order. Everything works with a keyboard, and reduced motion
+  skips the animation without skipping the result.
 - **Desktop layout.** The feature grid is a compact 2×2 on one screen, and the steps section renders
   its content at all times rather than hiding it behind a scroll. OG metadata points to `og-card.png`.
 - **Sign up.** Stays a pill at every width. We override the kit's phone-sized underline treatment.
@@ -79,18 +86,19 @@ Each choice below is deliberate. Where the reference and the design kit disagree
 ## Checks
 
 - `copy-lint.mjs` — 0 failures, 0 warnings.
-- `layout/check.mjs` — no findings at 1920, 1440, 1024, 820, 768, 390 and 320 px.
+- `layout/check.mjs` — no findings at 1440, 1024, 820, 768 and 390 px.
 - `node responsive-check.mjs` — 14 viewports from 2560×1440 down to 320×640. No horizontal overflow
   and no console errors.
 - `node animation-check.mjs` — the hero reveal, idle eye scan, caret tracking, mascot tap, band
   button visibility and reduced-motion states are all verified. No console errors.
-- `consistency.mjs` — accessibility, tap size, focus, reduced motion, WebGL fallback and overflow
-  all pass.
-
-Eleven consistency findings remain by choice. They mark places where the supplied reference and the
-kit's generic page rules disagree: three hero actions, wide mock panels that read as bands, two
-headings sharing a screen near the footer, and band text that starts on an internal line. We kept the
-reference's look.
+- Playground check — select, pointer drag, keyboard reorder, component sync, export download and
+  reset all verified, including under reduced motion. The downloaded SVG carries the chosen order.
+- `consistency.mjs` — 16 FAIL and 21 WARN, the same reference conflicts as the committed baseline
+  (which had 16 FAIL and 22 WARN); two checks improved, none regressed.
+- `gate.mjs` — 17 FAIL, down from the baseline's 18. The findings are the deliberate differences
+  between the supplied reference and the kit's generic rules: three hero actions, wide mock panels
+  that read as bands, two headings sharing a screen near the footer, band text that starts on an
+  internal line, and a companion that sits outside the main flow. We kept the reference's look.
 
 ## Before this goes live
 

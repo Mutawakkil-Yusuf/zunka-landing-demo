@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; width: 1200px; height: 630px; overflow: hidden;
+    background-color: #f2f2f2;
+    background-image: radial-gradient(circle, #dcdcdc 1px, transparent 1px);
+    background-size: 24px 24px;
+    font-family: 'Funnel Sans', system-ui, sans-serif;
+  }
+  .brand { position: absolute; left: 72px; top: 58px; display: flex; align-items: center; gap: 18px; }
+  .brand svg { width: 96px; height: 54px; display: block; }
+  .brand span { font: 500 42px/1 'Funnel Display', sans-serif; letter-spacing: -.035em; }
+  h1 {
+    position: absolute; left: 72px; top: 172px; width: 660px; margin: 0;
+    font: 700 86px/1.02 'Funnel Display', sans-serif; letter-spacing: -.045em; color: #0a0a0a;
+  }
+  .pill {
+    position: absolute; left: 72px; top: 470px; height: 56px; padding: 0 26px;
+    border-radius: 999px; background: #0a0a0a; color: #f2f2f2;
+    display: grid; place-items: center; font: 500 22px/1 'Funnel Sans', sans-serif;
+  }
+  .phones { position: absolute; right: 34px; top: 70px; width: 440px; height: 470px; }
+  .band {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 96px;
+    background: #e7e51e; display: flex; align-items: center; padding: 0 72px;
+    font: 500 28px/1 'Funnel Display', sans-serif; letter-spacing: -.02em;
+  }
+</style></head><body>
+  <div class="brand">
+    <svg viewBox="0 0 100 56" aria-hidden="true"><circle cx="28" cy="28" r="23" fill="#e7e51e"/><circle cx="72" cy="28" r="23" fill="#e7e51e"/><circle cx="30" cy="29" r="9" fill="#0a0a0a"/><circle cx="70" cy="29" r="9" fill="#0a0a0a"/><circle cx="34" cy="24" r="3" fill="#f2f2f2"/><circle cx="74" cy="24" r="3" fill="#f2f2f2"/></svg>
+    <span>zunka</span>
+  </div>
+  <h1>Mobile app screens for product teams</h1>
+  <div class="pill">Try it on Figma</div>
+  <img class="phones" src="assets/hero-3d-still.svg" alt="">
+  <div class="band">A Figma plugin for mobile app teams</div>
+</body></html>

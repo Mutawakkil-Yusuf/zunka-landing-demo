@@ -166,22 +166,22 @@ html, body, a, button, input, [role="button"] { -webkit-tap-highlight-color: tra
 
 /* ---------------------------------------------------------------- feature panels */
 .card--open > .panel.zk-feature-panel {
-  --p-h: 300px; min-height: 300px; padding: 24px;
+  --p-h: 180px; min-height: 180px; padding: 20px;
   background-color: #f7f7f7 !important;
   background-image: radial-gradient(circle, #e2e2e2 1px, transparent 1px);
   background-size: 20px 20px;
   border: 1px solid #ececec;
   overflow: hidden; display: grid; place-items: center;
 }
-.zk-mini { width: 220px; height: 250px; margin: 0 auto; background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 28px rgb(10 10 10 / .12), 0 2px 4px rgb(10 10 10 / .05); }
+.zk-mini { width: 180px; height: 210px; margin: 0 auto; background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 28px rgb(10 10 10 / .12), 0 2px 4px rgb(10 10 10 / .05); }
 .zk-mini__head { height: 28px; display: flex; align-items: center; gap: 5px; padding: 0 10px; border-bottom: 1px solid #eee; }
 .zk-mini__head i { width: 6px; height: 6px; border-radius: 50%; background: #d0d0d0; }
 .zk-mini__screen { padding: 16px; display: grid; gap: 10px; }
 .zk-mini__screen b { font-size: 13px; }
 .zk-mini__screen span { height: 28px; border-radius: 6px; background: #eeeeee; }
 .zk-mini__pill { height: 30px; border-radius: 999px; background: var(--p-accent); margin-top: 8px; }
-.zk-comp { display: grid; gap: 10px; width: min(100%, 340px); font-family: var(--font-mono); font-size: 13px; }
-.zk-comp span { padding: 10px 12px; border: 1px solid #e2e2e2; border-radius: 6px; background: #fff; }
+.zk-comp { display: grid; gap: 8px; width: min(100%, 300px); font-family: var(--font-mono); font-size: 13px; }
+.zk-comp span { padding: 8px 10px; border: 1px solid #e2e2e2; border-radius: 6px; background: #fff; }
 .zk-comp span.on { border-color: #0a0a0a; background: var(--p-accent); }
 .zk-comp__preview { display: flex; gap: 8px; margin-top: 6px; }
 .zk-comp__preview i { height: 38px; flex: 1; border-radius: 6px; background: #0a0a0a; }
@@ -192,18 +192,18 @@ html, body, a, button, input, [role="button"] { -webkit-tap-highlight-color: tra
 .zk-flow b { position: relative; width: 40px; text-align: center; font-size: 16px; }
 .zk-flow b::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #cfcfcf; z-index: -1; }
 .zk-flow i { position: absolute; width: 0; height: 0; }
-.zk-export { display: grid; gap: 10px; width: min(100%, 360px); margin: 0 auto; }
-.zk-export span { display: flex; align-items: center; gap: 10px; font-size: 14px; padding: 10px 12px; background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; }
+.zk-export { display: grid; gap: 8px; width: min(100%, 320px); margin: 0 auto; }
+.zk-export span { display: flex; align-items: center; gap: 10px; font-size: 14px; padding: 8px 10px; background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; }
 .zk-export span i { width: 16px; height: 16px; border-radius: 4px; background: var(--p-accent); }
 .zk-export__go { margin-top: 10px; height: 44px; border-radius: 999px; background: #0a0a0a; color: #fff; display: grid; place-items: center; font-size: 14px; }
 
 /* ---------------------------------------------------------------- steps (inverted ground) */
-.zk-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: 48px; border-radius: var(--r-lg); background: #f2f2f2; color: #0a0a0a; }
+.zk-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; padding: 64px; border-radius: var(--r-lg); background: #f2f2f2; color: #0a0a0a; }
 .zk-step { display: grid; align-content: start; gap: 10px; }
 .zk-step__n { font-family: var(--font-mono); font-size: 13px; color: #676767; }
 .zk-step b { font-family: var(--font-display); font-size: clamp(22px, 2vw, 30px); font-weight: 700; letter-spacing: -.03em; }
 .zk-step p { margin: 0; font-size: 16px; line-height: 1.5; max-width: 30ch; }
-.zk-step__ui { display: block; margin-top: 8px; height: 96px; border-radius: 10px; background: #e7e51e; position: relative; }
+.zk-step__ui { display: block; margin-top: 8px; height: 300px; border-radius: 10px; background: #e7e51e; position: relative; }
 .zk-step__ui::after { content: ""; position: absolute; left: 16px; right: 16px; top: 20px; height: 10px; border-radius: 4px; background: #0a0a0a; }
 .zk-step__ui--line::after { height: 56px; width: 10px; right: auto; background: repeating-linear-gradient(#0a0a0a 0 6px, transparent 6px 12px); }
 .zk-step__ui--pill { background: #0a0a0a; }

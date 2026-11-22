@@ -1,6 +1,24 @@
 /* Zunka eyes + companion. One loop, transform-only, no dependencies. */
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (new URLSearchParams(location.search).has('debug')) {
+    const panel = document.createElement('div');
+    panel.className = 'zk-debug';
+    document.body.appendChild(panel);
+    const refresh = () => {
+      const eye = document.querySelector('.zk-emoji--eyes');
+      panel.textContent = [
+        'reduce: ' + reduce,
+        'mascot: ' + (document.querySelector('.zk-mascot') ? getComputedStyle(document.querySelector('.zk-mascot')).display : 'none'),
+        'eye-x: ' + (eye?.style.getPropertyValue('--eye-x') || 'unset'),
+        'word: ' + (document.querySelector('.zk-typed__word')?.textContent || 'none'),
+        'gsap: ' + (window.gsap ? 'yes' : 'no')
+      ].join('\n');
+    };
+    refresh();
+    setInterval(refresh, 700);
+  }
   const mascot = document.querySelector('.zk-mascot');
   if (reduce) { if (mascot) mascot.style.display = 'none'; return; }
 

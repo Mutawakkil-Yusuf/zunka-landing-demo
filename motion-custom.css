@@ -252,6 +252,15 @@ footer.closing.is-tapped .close__word { letter-spacing: -.015em; }
 /* ---------------------------------------------------------------- typography
    The rotating audience word is the only animated text; its caret lives in styles.css. */
 
+/* Diagnostic panel, only when the URL contains ?debug */
+.zk-debug {
+  position: fixed; z-index: 200; top: 8px; right: 8px;
+  padding: 10px 12px; border-radius: 8px;
+  background: #0a0a0a; color: #e7e51e;
+  font: 11px/1.6 var(--font-mono); white-space: pre;
+  pointer-events: none;
+}
+
 /* ---------------------------------------------------------------- reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .zk-mascot { display: none !important; }

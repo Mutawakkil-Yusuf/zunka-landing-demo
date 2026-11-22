@@ -22,7 +22,10 @@
         'raf: ' + (typeof requestAnimationFrame),
         'frames: ' + frames,
         'revealed: ' + revealed,
-        'error: ' + (errors[0] || 'none')
+        'error: ' + (errors[0] || 'none'),
+        'eyeEl: ' + (document.querySelectorAll('.zk-emoji--eyes').length),
+        'typedEl: ' + (document.querySelectorAll('.zk-typed__word').length),
+        'scripts: ' + [...document.scripts].map((s) => s.src.split('/').pop()).join(',')
       ].join('\n');
     };
     refresh();

@@ -305,7 +305,6 @@ footer.closing .close__word { font-size: clamp(52px, 10vw, 160px); line-height: 
   .zk-price-panel.panel { min-height: 220px; padding: 24px; }
   .zk-faq { grid-template-columns: 1fr; gap: 16px; margin-top: 24px; padding-top: 16px; }
   .card--open > .panel.zk-feature-panel { --p-h: 100px; min-height: 100px; padding: 16px; }
-  .card--open > h3, .card--open > p { padding-right: 44px; }
   .zk-mini { width: 170px; height: 190px; }
   .zk-mini__screen { padding: 10px; gap: 6px; }
   .zk-mini__screen span { height: 20px; }

@@ -197,17 +197,6 @@ footer.closing.is-tapped .close__word { letter-spacing: -.015em; }
 
 /* ---------------------------------------------------------------- living mocks */
 .zk-window, .card--open > .panel.zk-feature-panel { position: relative; }
-.zk-loop-pause {
-  position: absolute; top: 10px; right: 10px; z-index: 3;
-  width: 24px; height: 24px; border: 0; border-radius: 50%;
-  background: rgb(10 10 10 / .72); color: #fff; cursor: pointer;
-  font: 500 10px/1 var(--font-mono);
-  transition: background-color 200ms ease;
-}
-.zk-loop-pause:hover, .zk-loop-pause:focus-visible { background: #0a0a0a; }
-/* In the plugin window the bar's Figma tab lives at the right edge. */
-.zk-window > .zk-loop-pause { right: 60px; }
-@media (max-width: 639px) { .zk-loop-pause { width: 44px; height: 44px; font-size: 12px; } }
 @keyframes zk-card-pulse { 0%, 100% { background-color: #fff; } 50% { background-color: var(--p-accent); } }
 @keyframes zk-tile-pulse { 0%, 100% { filter: none; } 50% { filter: brightness(.75); } }
 @keyframes zk-cta-pulse { 0%, 100% { scale: 1; } 50% { scale: 1.06; } }
@@ -215,24 +204,24 @@ footer.closing.is-tapped .close__word { letter-spacing: -.015em; }
 @keyframes zk-select { 0%, 100% { background-color: #fff; } 12% { background-color: var(--p-accent); } }
 @keyframes zk-flow-travel { 0%, 100% { translate: 0 0; opacity: .6; } 50% { translate: 4px 0; opacity: 1; } }
 @keyframes zk-tick { 0%, 100% { scale: 1; } 50% { scale: 1.25; } }
-.zk-window.is-live:not(.is-paused) .zk-phone__card { animation: zk-card-pulse 4.2s ease-in-out infinite; }
-.zk-window.is-live:not(.is-paused) .zk-phone--b .zk-phone__card { animation-delay: .7s; }
-.zk-window.is-live:not(.is-paused) .zk-phone__grid i:nth-child(2) { animation: zk-tile-pulse 4.2s ease-in-out infinite 1s; }
-.zk-window.is-live:not(.is-paused) .zk-phone__grid i:nth-child(4) { animation: zk-tile-pulse 4.2s ease-in-out infinite 2s; }
-.zk-window.is-live:not(.is-paused) .zk-phone__cta { animation: zk-cta-pulse 4.2s ease-in-out infinite 1.4s; }
-.zk-window.is-live:not(.is-paused) .zk-phone--c .zk-phone__cta { animation-delay: 2.4s; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-mini__pill { animation: zk-pill-slide 3.2s ease-in-out infinite; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-comp button[data-variant]:nth-child(1) { animation: zk-select 3.6s linear infinite; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-comp button[data-variant]:nth-child(2) { animation: zk-select 3.6s linear infinite .9s; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-comp button[data-variant]:nth-child(3) { animation: zk-select 3.6s linear infinite 1.8s; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-comp button[data-variant]:nth-child(4) { animation: zk-select 3.6s linear infinite 2.7s; }
+.zk-window.is-live .zk-phone__card { animation: zk-card-pulse 4.2s ease-in-out infinite; }
+.zk-window.is-live .zk-phone--b .zk-phone__card { animation-delay: .7s; }
+.zk-window.is-live .zk-phone__grid i:nth-child(2) { animation: zk-tile-pulse 4.2s ease-in-out infinite 1s; }
+.zk-window.is-live .zk-phone__grid i:nth-child(4) { animation: zk-tile-pulse 4.2s ease-in-out infinite 2s; }
+.zk-window.is-live .zk-phone__cta { animation: zk-cta-pulse 4.2s ease-in-out infinite 1.4s; }
+.zk-window.is-live .zk-phone--c .zk-phone__cta { animation-delay: 2.4s; }
+.zk-feature-panel.is-live .zk-mini__pill { animation: zk-pill-slide 3.2s ease-in-out infinite; }
+.zk-feature-panel.is-live .zk-comp button[data-variant]:nth-child(1) { animation: zk-select 3.6s linear infinite; }
+.zk-feature-panel.is-live .zk-comp button[data-variant]:nth-child(2) { animation: zk-select 3.6s linear infinite .9s; }
+.zk-feature-panel.is-live .zk-comp button[data-variant]:nth-child(3) { animation: zk-select 3.6s linear infinite 1.8s; }
+.zk-feature-panel.is-live .zk-comp button[data-variant]:nth-child(4) { animation: zk-select 3.6s linear infinite 2.7s; }
 /* Once a visitor picks a variant, the loop steps aside for their choice. */
-.zk-feature-panel.is-controlled.is-live:not(.is-paused) .zk-comp button[data-variant] { animation: none; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-flow b { animation: zk-flow-travel 2.8s ease-in-out infinite; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-flow b:nth-of-type(2) { animation-delay: .5s; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-export__list span i { animation: zk-tick 4s ease-in-out infinite; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-export__list span:nth-child(2) i { animation-delay: 1.3s; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-export__list span:nth-child(3) i { animation-delay: 2.6s; }
+.zk-feature-panel.is-controlled.is-live .zk-comp button[data-variant] { animation: none; }
+.zk-feature-panel.is-live .zk-flow b { animation: zk-flow-travel 2.8s ease-in-out infinite; }
+.zk-feature-panel.is-live .zk-flow b:nth-of-type(2) { animation-delay: .5s; }
+.zk-feature-panel.is-live .zk-export__list span i { animation: zk-tick 4s ease-in-out infinite; }
+.zk-feature-panel.is-live .zk-export__list span:nth-child(2) i { animation-delay: 1.3s; }
+.zk-feature-panel.is-live .zk-export__list span:nth-child(3) i { animation-delay: 2.6s; }
 
 /* caret for the rotating headline word */
 @keyframes zk-caret { 55% { opacity: 0; } }

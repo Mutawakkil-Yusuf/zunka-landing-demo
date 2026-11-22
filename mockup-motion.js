@@ -3,20 +3,6 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const groups = [...document.querySelectorAll('.zk-window, .card--open > .panel.zk-feature-panel')];
-  groups.forEach((group) => {
-    const pause = document.createElement('button');
-    pause.type = 'button';
-    pause.className = 'zk-loop-pause';
-    pause.textContent = 'II';
-    pause.setAttribute('aria-label', 'Pause animation');
-    // Cards put the control in the header corner, clear of the mock's own UI.
-    (group.closest('.card') || group).appendChild(pause);
-    pause.addEventListener('click', () => {
-      const stopped = group.classList.toggle('is-paused');
-      pause.textContent = stopped ? '>' : 'II';
-      pause.setAttribute('aria-label', stopped ? 'Play animation' : 'Pause animation');
-    });
-  });
 
   if (!('IntersectionObserver' in window)) {
     groups.forEach((group) => group.classList.add('is-live'));

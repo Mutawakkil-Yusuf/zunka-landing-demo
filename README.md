@@ -71,7 +71,7 @@ Each choice below is deliberate. Where the reference and the design kit disagree
 - **3D.** A CSS 3D perspective card holds a three-phone still that tilts with the pointer and spins
   briefly on press. No WebGL context, so it remains reliable on mobile.
 - **Living mocks.** The product window and four feature panels run slow, transform-only loops while
-  on screen, each with its own pause control.
+  on screen and rest when they scroll away. The pause controls are removed for now.
 - **A playable mock.** The page behaves like the plugin it sells. Click a layer to inspect its frame;
   drag the layers, or use the arrow keys, to reorder the flow — the canvas, the flow card and the
   export list all follow. Pick a component variant and every screen changes with it. Export produces

@@ -123,6 +123,11 @@
     speakTimer = setTimeout(() => companion?.classList.remove('is-speaking'), 1900);
   };
 
+  // The playground sends a short note when the visitor changes the flow.
+  document.addEventListener('zk:note', (event) => {
+    if (event.detail?.message) say(event.detail.message);
+  });
+
   let lastY = scrollY;
   addEventListener('scroll', () => {
     const delta = scrollY - lastY;

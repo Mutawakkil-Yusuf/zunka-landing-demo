@@ -3,6 +3,10 @@
 /* No blue flash on touch, and brand-coloured text selection instead of the browser blue. */
 html, body, a, button, input, [role="button"] { -webkit-tap-highlight-color: transparent; }
 ::selection { background: var(--p-accent); color: var(--p-accent-ink); }
+.zk-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
 
 /* ---------------------------------------------------------------- marks and nav */
 /* the reference has plain pill labels, no trailing arrow glyph */
@@ -132,7 +136,18 @@ html, body, a, button, input, [role="button"] { -webkit-tap-highlight-color: tra
 .zk-window__props { border-left: 1px solid #ececec; }
 .zk-window__layers .t-label, .zk-window__props .t-label { display: block; margin-bottom: 8px; font-family: var(--font-text); font-size: 12px; color: #0a0a0a; }
 .zk-window__layers span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.zk-window__layers span.on { color: #0a0a0a; background: var(--p-accent); border-radius: 4px; padding-inline: 4px; }
+.zk-layers-hint { margin: 0 0 8px; font-family: var(--font-text); font-size: 10px; color: #8a8a8a; }
+.zk-layer-list { display: grid; gap: 2px; margin-bottom: 10px; }
+.zk-layer {
+  display: block; width: 100%; min-height: 24px; padding: 2px 4px;
+  border: 0; border-radius: 4px; background: transparent;
+  font: inherit; text-align: left; color: inherit; cursor: grab;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; touch-action: none;
+}
+.zk-layer:hover { background: #f0f0f0; color: #0a0a0a; }
+.zk-layer.is-selected { background: var(--p-accent); color: #0a0a0a; padding-left: 6px; }
+.zk-layer.is-dragging { cursor: grabbing; opacity: .5; }
+.zk-layer:focus-visible { outline: 2px solid #0a0a0a; outline-offset: -1px; }
 .zk-window__canvas { background: #f2f2f2; display: flex; align-items: center; justify-content: center; gap: 20px; padding: 24px; min-width: 0; }
 .zk-phone { width: 120px; height: 264px; flex: none; background: #fff; border: 1px solid #dedede; border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 7px; box-shadow: 0 8px 20px rgb(10 10 10 / .07); }
 .zk-phone__bar { display: flex; gap: 4px; height: 10px; }
@@ -183,12 +198,21 @@ html, body, a, button, input, [role="button"] { -webkit-tap-highlight-color: tra
 .zk-mini__screen b { font-size: 13px; }
 .zk-mini__screen span { height: 28px; border-radius: 6px; background: #eeeeee; }
 .zk-mini__pill { height: 30px; border-radius: 999px; background: var(--p-accent); margin-top: 8px; }
-.zk-comp { display: grid; gap: 8px; width: min(100%, 300px); font-family: var(--font-mono); font-size: 13px; }
-.zk-comp span { padding: 8px 10px; border: 1px solid #e2e2e2; border-radius: 6px; background: #fff; }
-.zk-comp span.on { border-color: #0a0a0a; background: var(--p-accent); }
-.zk-comp__preview { display: flex; gap: 8px; margin-top: 6px; }
-.zk-comp__preview i { height: 38px; flex: 1; border-radius: 6px; background: #0a0a0a; }
+.zk-comp { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: min(100%, 300px); font-family: var(--font-mono); font-size: 11px; }
+.zk-comp [data-variant] { padding: 6px 8px; border: 1px solid #e2e2e2; border-radius: 6px; background: #fff; }
+.zk-comp button[data-variant] { min-height: 44px; font: inherit; line-height: 1.25; text-align: left; color: inherit; cursor: pointer; }
+.zk-comp button[data-variant]:hover { border-color: #0a0a0a; }
+.zk-comp button[data-variant].on { border-color: #0a0a0a; background: var(--p-accent); }
+.zk-comp button[data-variant]:focus-visible { outline: 2px solid #0a0a0a; outline-offset: 2px; }
+.zk-comp__preview { grid-column: 1 / -1; display: flex; gap: 8px; margin-top: 2px; }
+.zk-comp__preview i { height: 26px; flex: 1; border-radius: 6px; background: #0a0a0a; transition: background-color 240ms ease, box-shadow 240ms ease; }
 .zk-comp__preview i:last-child { background: #e7e51e; }
+.zk-comp__preview[data-variant="1"] i:first-child { background: #fff; box-shadow: inset 0 0 0 2px #0a0a0a; }
+.zk-comp__preview[data-variant="2"] i:first-child { background: #e9e9e9; box-shadow: inset 4px 0 0 var(--p-accent); }
+.zk-comp__preview[data-variant="3"] i:first-child { background: var(--p-accent); }
+.zk-window[data-variant="1"] .zk-phone__cta { background: #fff; box-shadow: inset 0 0 0 1.5px #0a0a0a; }
+.zk-window[data-variant="2"] .zk-phone__cta { background: #e9e9e9; box-shadow: inset 4px 0 0 var(--p-accent); }
+.zk-window[data-variant="3"] .zk-phone__cta { background: var(--p-accent); }
 .zk-flow { display: flex; align-items: center; justify-content: center; gap: 4px; height: 100%; width: 100%; }
 .zk-flow span { padding: 16px 14px; border-radius: 10px; background: #fff; border: 1px solid #e2e2e2; font-size: 13px; }
 .zk-flow span:first-child { background: var(--p-accent); border-color: transparent; }
@@ -196,9 +220,21 @@ html, body, a, button, input, [role="button"] { -webkit-tap-highlight-color: tra
 .zk-flow b::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #cfcfcf; z-index: -1; }
 .zk-flow i { position: absolute; width: 0; height: 0; }
 .zk-export { display: grid; gap: 8px; width: min(100%, 320px); margin: 0 auto; }
-.zk-export span { display: flex; align-items: center; gap: 10px; font-size: 14px; padding: 8px 10px; background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; }
-.zk-export span i { width: 16px; height: 16px; border-radius: 4px; background: var(--p-accent); }
-.zk-export__go { margin-top: 10px; height: 44px; border-radius: 999px; background: #0a0a0a; color: #fff; display: grid; place-items: center; font-size: 14px; }
+.zk-export__list { display: grid; gap: 8px; }
+.zk-export__list[hidden], .zk-export__go[hidden], .zk-export__sheet[hidden] { display: none; }
+.zk-export__list span { display: flex; align-items: center; gap: 10px; font-size: 14px; padding: 8px 10px; background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; }
+.zk-export__list span i { width: 16px; height: 16px; border-radius: 4px; background: var(--p-accent); }
+.zk-export__go { margin-top: 10px; height: 44px; border: 0; border-radius: 999px; background: #0a0a0a; color: #fff; display: grid; place-items: center; font: inherit; font-size: 14px; cursor: pointer; }
+.zk-export__go:hover { background: #1f1f1f; }
+.zk-export__sheet { display: grid; gap: 10px; }
+.zk-export__thumbs { display: flex; gap: 8px; justify-content: center; }
+.zk-export__thumbs i { width: 46px; height: 72px; border: 1px solid #d8d8d8; border-radius: 7px; background: var(--p-accent); box-shadow: 0 6px 14px rgb(10 10 10 / .12); }
+.zk-export__actions { display: flex; gap: 8px; }
+.zk-export__file { flex: 1; min-height: 44px; border-radius: 999px; background: var(--p-accent); color: #0a0a0a; display: grid; place-items: center; font-size: 14px; text-decoration: none; }
+.zk-export__file:hover { background: color-mix(in oklab, var(--p-accent) 88%, var(--p-ink)); }
+.zk-export__reset { width: 44px; min-height: 44px; flex: none; border: 1px solid #dedede; border-radius: 50%; background: #fff; cursor: pointer; font-size: 18px; line-height: 1; }
+.zk-export__reset:hover { background: #f0f0f0; }
+.zk-export__go:focus-visible, .zk-export__file:focus-visible, .zk-export__reset:focus-visible { outline: 2px solid #0a0a0a; outline-offset: 2px; }
 
 /* ---------------------------------------------------------------- steps (inverted ground) */
 .zk-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; padding: 64px; border-radius: var(--r-lg); background: #f2f2f2; color: #0a0a0a; }
@@ -269,6 +305,7 @@ footer.closing .close__word { font-size: clamp(52px, 10vw, 160px); line-height: 
   .zk-price-panel.panel { min-height: 220px; padding: 24px; }
   .zk-faq { grid-template-columns: 1fr; gap: 16px; margin-top: 24px; padding-top: 16px; }
   .card--open > .panel.zk-feature-panel { --p-h: 100px; min-height: 100px; padding: 16px; }
+  .card--open > h3, .card--open > p { padding-right: 44px; }
   .zk-mini { width: 170px; height: 190px; }
   .zk-mini__screen { padding: 10px; gap: 6px; }
   .zk-mini__screen span { height: 20px; }
@@ -276,8 +313,8 @@ footer.closing .close__word { font-size: clamp(52px, 10vw, 160px); line-height: 
   .zk-comp { gap: 6px; }
   .zk-comp span { padding: 8px 10px; }
   .zk-comp__preview i { height: 28px; }
-  .zk-export span { padding: 8px 10px; font-size: 13px; }
-  .zk-export__go { height: 36px; }
+  .zk-export__list span { padding: 8px 10px; font-size: 13px; }
+  .zk-export__thumbs { display: none; }
   .zk-flow span { padding: 10px; font-size: 12px; }
   .zk-flow b { width: 24px; }
   .zk-band { padding-bottom: 16px; }

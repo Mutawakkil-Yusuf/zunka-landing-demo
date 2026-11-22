@@ -9,7 +9,8 @@
     pause.className = 'zk-loop-pause';
     pause.textContent = 'II';
     pause.setAttribute('aria-label', 'Pause animation');
-    group.appendChild(pause);
+    // Cards put the control in the header corner, clear of the mock's own UI.
+    (group.closest('.card') || group).appendChild(pause);
     pause.addEventListener('click', () => {
       const stopped = group.classList.toggle('is-paused');
       pause.textContent = stopped ? '>' : 'II';

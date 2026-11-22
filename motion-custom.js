@@ -19,12 +19,13 @@
     document.addEventListener('zk:revealed', heroReveal, { once: true });
   }
 
-  // Layer row -> matching phone in the product mock.
+  // Layer rows light on hover; selection and the phone outline live in playground.js.
   const rows = document.querySelectorAll('.zk-window__layers [data-screen]');
   rows.forEach((row) => {
-    const phone = document.querySelector(`.zk-phone[data-layer="${row.dataset.screen}"]`);
-    const on = () => { row.classList.add('is-active'); phone?.classList.add('is-active'); };
-    const off = () => { row.classList.remove('is-active'); phone?.classList.remove('is-active'); };
+    // Hover lights the row; the phone outline belongs to the selected frame
+    // and is owned by playground.js, so the two cannot disagree.
+    const on = () => { row.classList.add('is-active'); };
+    const off = () => { if (!row.classList.contains('is-selected')) row.classList.remove('is-active'); };
     row.addEventListener('mouseenter', on);
     row.addEventListener('mouseleave', off);
   });

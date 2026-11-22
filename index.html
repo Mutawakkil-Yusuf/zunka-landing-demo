@@ -39,8 +39,8 @@
 <link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
 <link rel="stylesheet" href="assets/layout/layout.css">
 <link rel="stylesheet" href="assets/icons/icon.css">
-<link rel="stylesheet" href="styles.css?v=12">
-<link rel="stylesheet" href="motion-custom.css?v=17">
+<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="motion-custom.css?v=19">
 <style>
 :root {
   --p-bg: #f2f2f2; --p-surface: #ffffff; --p-ink: #0a0a0a; --p-muted: #676767;
@@ -157,12 +157,19 @@
         <h2 id="plugin-h">Design screens in Figma</h2>
         <p>Zunka sits beside your layers and keeps every screen, component and flow in the same file.</p>
       </div>
-      <div class="zk-window panel" role="img" aria-label="The Zunka panel inside Figma, with a layer list, three phone screens on the canvas, and properties on the right">
+      <div class="zk-window panel" role="group" aria-label="A working Zunka panel inside Figma. Select a layer to inspect it, or drag the layers to reorder the flow.">
         <div class="zk-window__bar"><span class="zk-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>Zunka · Mobile flows</span><span class="zk-window__tab">Figma</span></div>
         <div class="zk-window__body">
-          <aside class="zk-window__layers" aria-hidden="true">
+          <aside class="zk-window__layers">
             <p class="t-label">Layers</p>
-            <span class="on" data-screen="a">▾ Onboarding</span><span data-screen="b">▾ Home</span><span>  ▸ Header</span><span>  ▸ Story card</span><span data-screen="c">▾ Checkout</span><span>  ▸ Payment</span><span>▾ Components</span><span>  ▸ Button</span><span>  ▸ Input</span>
+            <p class="zk-layers-hint">Drag to reorder · click to select</p>
+            <div class="zk-layer-list" role="group" aria-label="Frames in the flow">
+              <button class="zk-layer is-selected" type="button" data-screen="a" aria-pressed="true" title="Drag to reorder, or use the arrow keys">▾ Onboarding</button>
+              <button class="zk-layer" type="button" data-screen="b" aria-pressed="false" title="Drag to reorder, or use the arrow keys">▾ Home</button>
+              <button class="zk-layer" type="button" data-screen="c" aria-pressed="false" title="Drag to reorder, or use the arrow keys">▾ Checkout</button>
+            </div>
+            <span>  ▸ Header</span><span>  ▸ Story card</span><span>  ▸ Payment</span><span>▾ Components</span><span>  ▸ Button</span><span>  ▸ Input</span>
+            <p class="zk-sr-only" data-live aria-live="polite"></p>
           </aside>
           <div class="zk-window__canvas" aria-hidden="true">
             <div class="zk-phone zk-phone--a" data-layer="a">
@@ -190,11 +197,11 @@
             </div>
           </div>
           <aside class="zk-window__props" aria-hidden="true">
-            <p class="t-label">Properties</p>
-            <span class="zk-prop"><i>Frame</i><i>390 × 844</i></span>
-            <span class="zk-prop"><i>Layout</i><i>Vertical</i></span>
-            <span class="zk-prop"><i>Gap</i><i>12</i></span>
-            <span class="zk-prop"><i>Fill</i><i>#F2F2F2</i></span>
+            <p class="t-label">Properties · <span data-prop="name">Onboarding</span></p>
+            <span class="zk-prop"><i>Frame</i><i data-prop="frame">390 × 844</i></span>
+            <span class="zk-prop"><i>Layout</i><i data-prop="layout">Vertical</i></span>
+            <span class="zk-prop"><i>Gap</i><i data-prop="gap">12</i></span>
+            <span class="zk-prop"><i>Fill</i><i data-prop="fill">#E7E51E</i></span>
             <div class="zk-props__swatch"><i></i><i></i><i></i></div>
             <span class="zk-prop"><i>Flow</i><i>3 screens</i></span>
           </aside>
@@ -222,7 +229,13 @@
             <h3>Zunka components</h3>
             <p>Keep buttons, lists and headers in sync across every screen.</p>
             <div class="panel zk-feature-panel">
-              <div class="zk-comp" aria-hidden="true"><span class="on">Button / Primary</span><span>Button / Secondary</span><span>Input / Default</span><span>Card / List</span><div class="zk-comp__preview"><i></i><i></i></div></div>
+              <div class="zk-comp" role="group" aria-label="Component variants — pick one to update every screen">
+                <button class="on" type="button" data-variant="0" aria-pressed="true">Button / Primary</button>
+                <button type="button" data-variant="1" aria-pressed="false">Button / Secondary</button>
+                <button type="button" data-variant="2" aria-pressed="false">Input / Default</button>
+                <button type="button" data-variant="3" aria-pressed="false">Card / List</button>
+                <div class="zk-comp__preview" data-variant="0" aria-hidden="true"><i></i><i></i></div>
+              </div>
             </div>
           </article>
         </div>
@@ -233,14 +246,26 @@
             <h3>Zunka flows</h3>
             <p>Link frames in the order a person moves through the app.</p>
             <div class="panel zk-feature-panel">
-              <div class="zk-flow" aria-hidden="true"><span>Welcome</span><b>→</b><span>Home</span><b>→</b><span>Checkout</span><i></i></div>
+              <div class="zk-flow" aria-hidden="true"><span data-flow>Onboarding</span><b>→</b><span data-flow>Home</span><b>→</b><span data-flow>Checkout</span><i></i></div>
             </div>
           </article>
           <article class="card card--row card--open span-6">
             <h3>Zunka export</h3>
             <p>Send every linked screen out together, in one click.</p>
             <div class="panel zk-feature-panel">
-              <div class="zk-export" aria-hidden="true"><span><i></i> Onboarding</span><span><i></i> Home</span><span><i></i> Checkout</span><div class="zk-export__go">Export 3 screens</div></div>
+              <div class="zk-export" data-export>
+                <div class="zk-export__list">
+                  <span><i></i> Onboarding</span><span><i></i> Home</span><span><i></i> Checkout</span>
+                </div>
+                <button class="zk-export__go" type="button" data-export-go>Download 3 screens</button>
+                <div class="zk-export__sheet" hidden>
+                  <div class="zk-export__thumbs" aria-hidden="true"><i></i><i></i><i></i></div>
+                  <div class="zk-export__actions">
+                    <a class="zk-export__file" href="#" download="zunka-flow.svg">Download flow</a>
+                    <button class="zk-export__reset" type="button" aria-label="Reset export">↺</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </article>
         </div>
@@ -351,10 +376,11 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
-<script src="motion-custom.js?v=4" defer></script>
-<script src="eye-motion.js?v=13" defer></script>
+<script src="motion-custom.js?v=7" defer></script>
+<script src="eye-motion.js?v=14" defer></script>
 <script src="text-motion.js?v=6" defer></script>
 <script src="mockup-motion.js?v=2" defer></script>
+<script src="playground.js?v=3" defer></script>
 <script src="typewriter.js?v=4" defer></script>
 </body>
 </html>

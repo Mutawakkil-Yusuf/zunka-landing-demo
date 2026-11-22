@@ -88,8 +88,8 @@
 @keyframes zk-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
 .zk-export__go { transition: background-color 220ms ease; }
 .card--open:hover .zk-export__go { background: #1f1f1f; }
-.zk-comp span.on { transition: transform 260ms cubic-bezier(.34, 1.56, .64, 1); }
-.card--open:hover .zk-comp span.on { transform: translateX(4px); }
+.zk-comp button[data-variant].on { transition: transform 260ms cubic-bezier(.34, 1.56, .64, 1); }
+.card--open:hover .zk-comp button[data-variant].on { transform: translateX(4px); }
 .zk-mini__pill { transition: transform 300ms cubic-bezier(.16, 1, .3, 1); }
 .card--open:hover .zk-mini__pill { transform: translateY(-4px); }
 
@@ -128,7 +128,7 @@ footer.closing:hover .close__word { letter-spacing: -.015em; }
 .zk-window__layers [data-screen].is-tapped { background: var(--p-accent); color: #0a0a0a; padding-left: 6px; border-radius: 4px; }
 .card--open.is-tapped .zk-flow b:nth-of-type(1) { animation: zk-nudge 320ms ease-out 1; }
 .card--open.is-tapped .zk-flow b:nth-of-type(2) { animation: zk-nudge 320ms ease-out 80ms 1; }
-.card--open.is-tapped .zk-comp span.on { transform: translateX(4px); }
+.card--open.is-tapped .zk-comp button[data-variant].on { transform: translateX(4px); }
 .card--open.is-tapped .zk-mini__pill { transform: translateY(-4px); }
 .zk-step.is-tapped .zk-step__n { transform: translateX(4px); }
 .zk-step.is-tapped .zk-step__ui { filter: brightness(1.08); transform: translateY(-2px); }
@@ -205,6 +205,8 @@ footer.closing.is-tapped .close__word { letter-spacing: -.015em; }
   transition: background-color 200ms ease;
 }
 .zk-loop-pause:hover, .zk-loop-pause:focus-visible { background: #0a0a0a; }
+/* In the plugin window the bar's Figma tab lives at the right edge. */
+.zk-window > .zk-loop-pause { right: 60px; }
 @media (max-width: 639px) { .zk-loop-pause { width: 44px; height: 44px; font-size: 12px; } }
 @keyframes zk-card-pulse { 0%, 100% { background-color: #fff; } 50% { background-color: var(--p-accent); } }
 @keyframes zk-tile-pulse { 0%, 100% { filter: none; } 50% { filter: brightness(.75); } }
@@ -220,15 +222,17 @@ footer.closing.is-tapped .close__word { letter-spacing: -.015em; }
 .zk-window.is-live:not(.is-paused) .zk-phone__cta { animation: zk-cta-pulse 4.2s ease-in-out infinite 1.4s; }
 .zk-window.is-live:not(.is-paused) .zk-phone--c .zk-phone__cta { animation-delay: 2.4s; }
 .zk-feature-panel.is-live:not(.is-paused) .zk-mini__pill { animation: zk-pill-slide 3.2s ease-in-out infinite; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-comp span:nth-child(1) { animation: zk-select 3.6s linear infinite; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-comp span:nth-child(2) { animation: zk-select 3.6s linear infinite .9s; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-comp span:nth-child(3) { animation: zk-select 3.6s linear infinite 1.8s; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-comp span:nth-child(4) { animation: zk-select 3.6s linear infinite 2.7s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-comp button[data-variant]:nth-child(1) { animation: zk-select 3.6s linear infinite; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-comp button[data-variant]:nth-child(2) { animation: zk-select 3.6s linear infinite .9s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-comp button[data-variant]:nth-child(3) { animation: zk-select 3.6s linear infinite 1.8s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-comp button[data-variant]:nth-child(4) { animation: zk-select 3.6s linear infinite 2.7s; }
+/* Once a visitor picks a variant, the loop steps aside for their choice. */
+.zk-feature-panel.is-controlled.is-live:not(.is-paused) .zk-comp button[data-variant] { animation: none; }
 .zk-feature-panel.is-live:not(.is-paused) .zk-flow b { animation: zk-flow-travel 2.8s ease-in-out infinite; }
 .zk-feature-panel.is-live:not(.is-paused) .zk-flow b:nth-of-type(2) { animation-delay: .5s; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-export span i { animation: zk-tick 4s ease-in-out infinite; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-export span:nth-child(2) i { animation-delay: 1.3s; }
-.zk-feature-panel.is-live:not(.is-paused) .zk-export span:nth-child(3) i { animation-delay: 2.6s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-export__list span i { animation: zk-tick 4s ease-in-out infinite; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-export__list span:nth-child(2) i { animation-delay: 1.3s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-export__list span:nth-child(3) i { animation-delay: 2.6s; }
 
 /* caret for the rotating headline word */
 @keyframes zk-caret { 55% { opacity: 0; } }
@@ -252,6 +256,11 @@ footer.closing.is-tapped .close__word { letter-spacing: -.015em; }
 /* ---------------------------------------------------------------- typography
    The rotating audience word is the only animated text; its caret lives in styles.css. */
 
+/* ---------------------------------------------------------------- playground */
+.zk-layer { transition: background-color 200ms ease, color 200ms ease, padding-left 200ms ease, opacity 200ms ease; }
+.zk-layer.is-dragging { transition: none; }
+.zk-phone__cta { transition: background-color 240ms ease, box-shadow 240ms ease; }
+
 /* ---------------------------------------------------------------- reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .zk-mascot { display: none !important; }
@@ -259,7 +268,9 @@ footer.closing.is-tapped .close__word { letter-spacing: -.015em; }
   .zk-intro__dots i, .zk-intro__caret, .zk-typed__caret { animation: none !important; }
   .nav__link::after, .btn, .zk-mark, .zk-emoji, .zk-plane,
   .zk-band, .zk-tile, .zk-tile svg, .zk-dots i, .zk-phone, .zk-window__layers [data-screen],
-  .zk-flow b, .zk-export__go, .zk-comp span.on, .zk-mini__pill, .zk-step__n, .zk-step__ui,
+  .zk-flow b, .zk-export__go, .zk-comp button[data-variant], .zk-comp__preview i,
+  .zk-layer, .zk-phone__cta, .zk-export__file, .zk-export__reset,
+  .zk-mini__pill, .zk-step__n, .zk-step__ui,
   .zk-price-panel__mark, .form .field input, .form .field label, footer.closing .close__word {
     transition: none !important; animation: none !important;
   }

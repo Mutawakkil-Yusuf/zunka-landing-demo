@@ -46,16 +46,17 @@
   let glance = 0, glanceTarget = 0, spin = 0;
   let scrollTimer = null, blinkTimer = null, speakTimer = null;
 
+  // Re-query on every frame: translation tools and in-app browsers can replace DOM nodes.
   const paint = () => {
-    logoHosts.forEach((h) => {
+    document.querySelectorAll('.zk-mark').forEach((h) => {
       h.style.setProperty('--zk-pupil-x', (curX * .55).toFixed(2) + 'px');
       h.style.setProperty('--zk-pupil-y', (curY * .55 + glance * .4).toFixed(2) + 'px');
     });
-    headlineEyes.forEach((e) => {
+    document.querySelectorAll('.zk-emoji--eyes').forEach((e) => {
       e.style.setProperty('--eye-x', ((curX + scanX) * .85).toFixed(2) + 'px');
       e.style.setProperty('--eye-y', (curY * .7 + glance * .5).toFixed(2) + 'px');
     });
-    mascotPupils.forEach((p, i) => {
+    document.querySelectorAll('.zk-mascot__pupil').forEach((p, i) => {
       const rest = i ? -1.4 : 1.4;
       p.style.transform = `translate(${(curX * 1.8 + rest).toFixed(2)}px, ${(curY * 1.6 + glance).toFixed(2)}px)`;
     });
@@ -90,18 +91,16 @@
     if (e.touches[0]) point(e.touches[0].clientX, e.touches[0].clientY);
   }, { passive: true });
 
+  const setLids = (value) => {
+    document.querySelectorAll('.zk-mark').forEach((h) => h.style.setProperty('--zk-lid', value));
+    document.querySelectorAll('.zk-emoji--eyes').forEach((e) => e.style.setProperty('--eye-lid', value));
+    const companion = document.querySelector('.zk-mascot');
+    companion?.style.setProperty('--m-lid-l', value);
+    companion?.style.setProperty('--m-lid-r', value);
+  };
   const blink = (short = false) => {
-    const closed = short ? '.12' : '.06';
-    logoHosts.forEach((h) => h.style.setProperty('--zk-lid', closed));
-    headlineEyes.forEach((e) => e.style.setProperty('--eye-lid', closed));
-    mascot?.style.setProperty('--m-lid-l', closed);
-    mascot?.style.setProperty('--m-lid-r', closed);
-    setTimeout(() => {
-      logoHosts.forEach((h) => h.style.setProperty('--zk-lid', '1'));
-      headlineEyes.forEach((e) => e.style.setProperty('--eye-lid', '1'));
-      mascot?.style.setProperty('--m-lid-l', '1');
-      mascot?.style.setProperty('--m-lid-r', '1');
-    }, short ? 90 : 130);
+    setLids(short ? '.12' : '.06');
+    setTimeout(() => setLids('1'), short ? 90 : 130);
   };
 
   // The headline eye also lives on its own: a quick left/right scan about every two seconds.
@@ -122,16 +121,19 @@
   setTimeout(nextScan, 900);
 
   const bounce = () => {
-    mascot?.style.setProperty('--m-scale', '1.1');
-    setTimeout(() => mascot?.style.setProperty('--m-scale', '1'), 180);
+    const companion = document.querySelector('.zk-mascot');
+    companion?.style.setProperty('--m-scale', '1.1');
+    setTimeout(() => companion?.style.setProperty('--m-scale', '1'), 180);
   };
 
   const say = (message) => {
-    if (!bubble) return;
-    bubble.textContent = message;
-    mascot?.classList.add('is-speaking');
+    const companion = document.querySelector('.zk-mascot');
+    const bubbleNow = document.querySelector('.zk-mascot__bubble');
+    if (!bubbleNow) return;
+    bubbleNow.textContent = message;
+    companion?.classList.add('is-speaking');
     clearTimeout(speakTimer);
-    speakTimer = setTimeout(() => mascot?.classList.remove('is-speaking'), 1900);
+    speakTimer = setTimeout(() => companion?.classList.remove('is-speaking'), 1900);
   };
 
   let lastY = scrollY;

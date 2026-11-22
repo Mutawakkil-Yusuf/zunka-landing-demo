@@ -1,0 +1,270 @@
+/* Zunka motion layer — small, deliberate, pointer-led. No idle loops. */
+
+@property --s {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 18px;
+}
+
+.zk-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ---------------------------------------------------------------- the eye mark */
+.zk-mark { width: 30px; height: 18px; color: var(--p-accent); }
+.zk-mark__svg, .zk-band__mark svg, .zk-tile svg, .zk-price-panel__mark { display: block; width: 100%; height: 100%; }
+.zk-band__mark { width: 46px; height: 26px; }
+.zk-tile svg { width: 58%; height: 32%; }
+.zk-price-panel__mark { width: 56px; height: 32px; }
+@media (hover: hover) and (pointer: fine) {
+  .zk-logo:hover .zk-mark { transform: scale(1.06) rotate(-4deg); }
+  .zk-mark { transition: transform 320ms cubic-bezier(.34, 1.56, .64, 1); }
+}
+
+/* ---------------------------------------------------------------- nav words */
+.nav__link { position: relative; }
+.nav__link::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px;
+  background: currentColor; transform: scaleX(0); transform-origin: right;
+  transition: transform 220ms cubic-bezier(.2, .8, .2, 1);
+}
+.nav__link:hover::after, .nav__link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+
+/* ---------------------------------------------------------------- buttons */
+.btn { transition: transform 180ms cubic-bezier(.2, .8, .2, 1), background-color 180ms, color 180ms !important; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(1px) scale(.985); }
+.hero--zunka .btn--primary:hover, .nav .btn--primary:hover {
+  background: var(--p-accent) !important; color: var(--p-accent-ink) !important;
+}
+
+/* ---------------------------------------------------------------- headline glyphs */
+.zk-emoji { position: relative; }
+@media (hover: hover) and (pointer: fine) {
+  #hero-h:hover .zk-emoji--phone::after {
+    content: ""; position: absolute; inset: 14% 12%; border-radius: 2px;
+    background: linear-gradient(100deg, transparent 0%, rgb(255 255 255 / .85) 45%, transparent 100%);
+    animation: zk-sweep 240ms ease-out 1;
+  }
+}
+@keyframes zk-sweep { from { opacity: 0; transform: translateX(-60%); } 45% { opacity: 1; } to { opacity: 0; transform: translateX(60%); } }
+
+/* ---------------------------------------------------------------- paper plane */
+.zk-plane { transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
+.hero--zunka:hover .zk-plane { transform: translate(6px, -3px); }
+
+/* ---------------------------------------------------------------- scalloped band */
+.zk-band { transition: --s 320ms cubic-bezier(.2, .8, .2, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .zk-band:hover { --s: 20px; }
+  .zk-band:hover .zk-tile { transform: translateY(-3px); }
+}
+.zk-tile { transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
+.zk-band .zk-tile:nth-child(2) { transition-delay: 60ms; }
+.zk-tile:hover svg { transform: rotate(-10deg) scale(1.08); }
+.zk-tile svg { transition: transform 300ms cubic-bezier(.34, 1.56, .64, 1); }
+.zk-band__btn:hover { background: #262626 !important; color: #fff !important; }
+
+/* ---------------------------------------------------------------- product window */
+.zk-dots i { transition: background-color 200ms ease, transform 200ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .zk-window:hover .zk-dots i:nth-child(2) { background: #6fd623; transition-delay: 60ms; }
+  .zk-window:hover .zk-dots i:nth-child(3) { background: #f2f2f2; transition-delay: 120ms; }
+}
+.zk-window__layers [data-screen] { cursor: default; transition: background-color 200ms ease, color 200ms ease, padding-left 200ms ease; }
+.zk-window__layers [data-screen].is-active { background: var(--p-accent); color: #0a0a0a; padding-left: 6px; border-radius: 4px; }
+.zk-phone { transition: outline-color 220ms ease, transform 260ms cubic-bezier(.2, .8, .2, 1); outline: 2px solid transparent; outline-offset: 2px; }
+.zk-phone.is-active { outline-color: var(--p-accent); transform: translateY(-4px); }
+.zk-window:hover .zk-phone__card, .zk-window:hover .zk-phone__row {
+  animation: zk-rise 420ms cubic-bezier(.16, 1, .3, 1) both;
+}
+.zk-window:hover .zk-phone__card:nth-of-type(2) { animation-delay: 80ms; }
+.zk-window:hover .zk-phone__row:nth-of-type(2) { animation-delay: 80ms; }
+@keyframes zk-rise { from { transform: translateY(5px); opacity: .65; } to { transform: translateY(0); opacity: 1; } }
+
+/* ---------------------------------------------------------------- feature cards */
+.card--open:hover h3 { color: #000; }
+.zk-flow b { display: inline-block; }
+.card--open:hover .zk-flow b:nth-of-type(1) { animation: zk-nudge 320ms ease-out 1; }
+.card--open:hover .zk-flow b:nth-of-type(2) { animation: zk-nudge 320ms ease-out 80ms 1; }
+@keyframes zk-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+.zk-export__go { transition: background-color 220ms ease; }
+.card--open:hover .zk-export__go { background: #1f1f1f; }
+.zk-comp span.on { transition: transform 260ms cubic-bezier(.34, 1.56, .64, 1); }
+.card--open:hover .zk-comp span.on { transform: translateX(4px); }
+.zk-mini__pill { transition: transform 300ms cubic-bezier(.16, 1, .3, 1); }
+.card--open:hover .zk-mini__pill { transform: translateY(-4px); }
+
+/* ---------------------------------------------------------------- steps */
+.zk-step__n { transition: transform 240ms cubic-bezier(.2, .8, .2, 1); }
+.zk-step:hover .zk-step__n { transform: translateX(4px); }
+.zk-step__ui { transition: filter 260ms ease, transform 260ms ease; }
+.zk-step:hover .zk-step__ui { filter: brightness(1.08); transform: translateY(-2px); }
+
+/* ---------------------------------------------------------------- pricing and footer */
+.zk-price-panel__mark { transition: transform 420ms cubic-bezier(.2, .8, .2, 1); }
+.zk-price-panel:hover .zk-price-panel__mark { transform: rotate(16deg); }
+.form .field input { transition: border-color 200ms ease, box-shadow 200ms ease; }
+.form .field input:focus { border-color: var(--p-accent); box-shadow: 0 1px 0 0 var(--p-accent); }
+.form .field label { transition: transform 200ms cubic-bezier(.2, .8, .2, 1); }
+.form .field:focus-within label { transform: translateY(-2px); }
+.form.is-invalid .field:has([aria-invalid="true"]) { animation: zk-shake 180ms ease-in-out 1; }
+@keyframes zk-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+footer.closing .close__word { transition: letter-spacing 420ms cubic-bezier(.16, 1, .3, 1); }
+footer.closing:hover .close__word { letter-spacing: -.015em; }
+
+/* ---------------------------------------------------------------- touch equivalents
+   Every hover detail above has a tap counterpart. motion-custom.js adds .is-tapped
+   for 520ms on touch devices, so nothing depends on a hover-capable pointer. */
+.zk-logo.is-tapped .zk-mark { transform: scale(1.06) rotate(-4deg); }
+.nav__link.is-tapped::after { transform: scaleX(1); transform-origin: left; }
+#hero-h.is-tapped .zk-emoji--phone::after {
+  content: ""; position: absolute; inset: 14% 12%; border-radius: 2px;
+  background: linear-gradient(100deg, transparent 0%, rgb(255 255 255 / .85) 45%, transparent 100%);
+  animation: zk-sweep 240ms ease-out 1;
+}
+.hero--zunka.is-tapped .zk-plane { transform: translate(6px, -3px); }
+.zk-band.is-tapped { --s: 20px; }
+.zk-band.is-tapped .zk-tile, .zk-tile.is-tapped { transform: translateY(-3px); }
+.zk-tile.is-tapped svg { transform: rotate(-10deg) scale(1.08); }
+.zk-window__layers [data-screen].is-tapped { background: var(--p-accent); color: #0a0a0a; padding-left: 6px; border-radius: 4px; }
+.card--open.is-tapped .zk-flow b:nth-of-type(1) { animation: zk-nudge 320ms ease-out 1; }
+.card--open.is-tapped .zk-flow b:nth-of-type(2) { animation: zk-nudge 320ms ease-out 80ms 1; }
+.card--open.is-tapped .zk-comp span.on { transform: translateX(4px); }
+.card--open.is-tapped .zk-mini__pill { transform: translateY(-4px); }
+.zk-step.is-tapped .zk-step__n { transform: translateX(4px); }
+.zk-step.is-tapped .zk-step__ui { filter: brightness(1.08); transform: translateY(-2px); }
+.zk-price-panel.is-tapped .zk-price-panel__mark { transform: rotate(16deg); }
+footer.closing.is-tapped .close__word { letter-spacing: -.015em; }
+
+/* ---------------------------------------------------------------- the companion */
+.zk-mascot {
+  position: fixed; z-index: 20;
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  width: 72px; height: 72px;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+.zk-mascot.is-dim { opacity: .38; }
+.zk-mascot__svg {
+  display: block; width: 100%; height: 100%;
+  transform: rotate(var(--m-tilt, 0deg)) scale(var(--m-scale, 1));
+  transform-origin: center;
+  transition: transform 280ms cubic-bezier(.34, 1.56, .64, 1);
+}
+.zk-mascot { pointer-events: auto; cursor: pointer; }
+.zk-mascot__body { fill: #e7e51e; }
+.zk-mascot__eye {
+  transform-box: fill-box; transform-origin: center;
+  transform: scaleY(var(--m-lid, 1));
+  transition: transform 180ms cubic-bezier(.2, .8, .2, 1);
+}
+.zk-mascot__eye--l { transform: scaleY(var(--m-lid-l, var(--m-lid, 1))); }
+.zk-mascot__eye--r { transform: scaleY(var(--m-lid-r, var(--m-lid, 1))); }
+.zk-mascot__pupil { transition: transform 180ms cubic-bezier(.16, 1, .3, 1); }
+.zk-mascot__pupil { transform-box: fill-box; transform-origin: center; }
+.zk-mascot__mouth { display: block; }
+.zk-mascot__bubble {
+  position: absolute; right: 0; bottom: calc(100% + 10px);
+  padding: 8px 12px; border-radius: 999px;
+  background: #0a0a0a; color: #f2f2f2;
+  font: 500 12px/1 var(--font-text);
+  white-space: nowrap;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 200ms ease, transform 240ms cubic-bezier(.16, 1, .3, 1);
+}
+.zk-mascot.is-speaking .zk-mascot__bubble { opacity: 1; transform: translateY(0); }
+@media (max-width: 639px) {
+  .zk-mascot {
+    width: 56px; height: 56px;
+    right: calc(16px + env(safe-area-inset-right, 0px));
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+  .zk-mascot__bubble { font-size: 11px; padding: 6px 10px; }
+}
+
+/* ---------------------------------------------------------------- living text */
+.zk-band__title span { display: inline-block; transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
+.zk-band:hover .zk-band__title span, .zk-band.is-tapped .zk-band__title span { transform: translateX(4px); }
+.section-head h2 { position: relative; }
+.section-head h2::after {
+  content: ""; position: absolute; left: 0; bottom: -8px; width: 32px; height: 2px;
+  background: var(--p-accent); transform: scaleX(0); transform-origin: left;
+  transition: transform 260ms cubic-bezier(.2, .8, .2, 1);
+}
+.section-head:hover h2::after { transform: scaleX(1); }
+.card--open h3 { transition: transform 240ms cubic-bezier(.2, .8, .2, 1); }
+.card--open:hover h3, .card--open.is-tapped h3 { transform: translateX(3px); }
+
+/* ---------------------------------------------------------------- living mocks */
+.zk-window, .card--open > .panel.zk-feature-panel { position: relative; }
+.zk-loop-pause {
+  position: absolute; top: 10px; right: 10px; z-index: 3;
+  width: 24px; height: 24px; border: 0; border-radius: 50%;
+  background: rgb(10 10 10 / .72); color: #fff; cursor: pointer;
+  font: 500 10px/1 var(--font-mono);
+  transition: background-color 200ms ease;
+}
+.zk-loop-pause:hover, .zk-loop-pause:focus-visible { background: #0a0a0a; }
+@media (max-width: 639px) { .zk-loop-pause { width: 44px; height: 44px; font-size: 12px; } }
+@keyframes zk-card-pulse { 0%, 100% { background-color: #fff; } 50% { background-color: var(--p-accent); } }
+@keyframes zk-tile-pulse { 0%, 100% { filter: none; } 50% { filter: brightness(.75); } }
+@keyframes zk-cta-pulse { 0%, 100% { scale: 1; } 50% { scale: 1.06; } }
+@keyframes zk-pill-slide { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+@keyframes zk-select { 0%, 100% { background-color: #fff; } 12% { background-color: var(--p-accent); } }
+@keyframes zk-flow-travel { 0%, 100% { translate: 0 0; opacity: .6; } 50% { translate: 4px 0; opacity: 1; } }
+@keyframes zk-tick { 0%, 100% { scale: 1; } 50% { scale: 1.25; } }
+.zk-window.is-live:not(.is-paused) .zk-phone__card { animation: zk-card-pulse 4.2s ease-in-out infinite; }
+.zk-window.is-live:not(.is-paused) .zk-phone--b .zk-phone__card { animation-delay: .7s; }
+.zk-window.is-live:not(.is-paused) .zk-phone__grid i:nth-child(2) { animation: zk-tile-pulse 4.2s ease-in-out infinite 1s; }
+.zk-window.is-live:not(.is-paused) .zk-phone__grid i:nth-child(4) { animation: zk-tile-pulse 4.2s ease-in-out infinite 2s; }
+.zk-window.is-live:not(.is-paused) .zk-phone__cta { animation: zk-cta-pulse 4.2s ease-in-out infinite 1.4s; }
+.zk-window.is-live:not(.is-paused) .zk-phone--c .zk-phone__cta { animation-delay: 2.4s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-mini__pill { animation: zk-pill-slide 3.2s ease-in-out infinite; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-comp span:nth-child(1) { animation: zk-select 3.6s linear infinite; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-comp span:nth-child(2) { animation: zk-select 3.6s linear infinite .9s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-comp span:nth-child(3) { animation: zk-select 3.6s linear infinite 1.8s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-comp span:nth-child(4) { animation: zk-select 3.6s linear infinite 2.7s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-flow b { animation: zk-flow-travel 2.8s ease-in-out infinite; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-flow b:nth-of-type(2) { animation-delay: .5s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-export span i { animation: zk-tick 4s ease-in-out infinite; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-export span:nth-child(2) i { animation-delay: 1.3s; }
+.zk-feature-panel.is-live:not(.is-paused) .zk-export span:nth-child(3) i { animation-delay: 2.6s; }
+
+/* caret for the rotating headline word */
+@keyframes zk-caret { 55% { opacity: 0; } }
+
+/* ---------------------------------------------------------------- 3D hero scene */
+/* A CSS 3D scene: one perspective host, one card that tilts with the pointer. */
+.zk-hero-3d {
+  position: absolute; z-index: 0; right: 0; top: 4%; width: 48%; height: 78%;
+  pointer-events: none; perspective: 900px;
+}
+.zk-hero-3d__card {
+  position: absolute; inset: 0;
+  background-image: url(assets/hero-3d-still.svg);
+  background-repeat: no-repeat; background-position: center; background-size: contain;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--sc-x, 0deg)) rotateY(var(--sc-y, 0deg)) rotateZ(var(--sc-spin, 0deg));
+  transition: transform 320ms cubic-bezier(.2, .8, .2, 1);
+}
+@media (max-width: 767px) { .zk-hero-3d { display: none; } }
+
+/* ---------------------------------------------------------------- typography
+   The rotating audience word is the only animated text; its caret lives in styles.css. */
+
+/* ---------------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .zk-mascot { display: none !important; }
+  .zk-hero-3d__card { transform: none !important; transition: none !important; }
+  .zk-intro__dots i, .zk-intro__caret, .zk-typed__caret { animation: none !important; }
+  .nav__link::after, .btn, .zk-mark, .zk-emoji, .zk-plane,
+  .zk-band, .zk-tile, .zk-tile svg, .zk-dots i, .zk-phone, .zk-window__layers [data-screen],
+  .zk-flow b, .zk-export__go, .zk-comp span.on, .zk-mini__pill, .zk-step__n, .zk-step__ui,
+  .zk-price-panel__mark, .form .field input, .form .field label, footer.closing .close__word {
+    transition: none !important; animation: none !important;
+  }
+  #hero-h:hover .zk-emoji--eyes, #hero-h:hover .zk-emoji--phone::after,
+  #hero-h.is-tapped .zk-emoji--eyes, #hero-h.is-tapped .zk-emoji--phone::after,
+  .zk-window:hover .zk-phone__card, .zk-window:hover .zk-phone__row,
+  .card--open:hover .zk-flow b, .form.is-invalid .field:has([aria-invalid="true"]) { animation: none !important; }
+}

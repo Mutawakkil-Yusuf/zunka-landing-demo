@@ -1,0 +1,27 @@
+{
+  "name": "Zunka",
+  "reason": "Coined lowercase wordmark with a sunburst mark; no existing mobile-app design tool or Figma plugin with this exact name was found in the searches below.",
+  "searched": true,
+  "queries": [
+    {
+      "query": "npm registry search: zunka",
+      "where": "https://registry.npmjs.org/-/v1/search?text=zunka&size=5",
+      "result": "No packages returned."
+    },
+    {
+      "query": "GitHub repository search: zunka in:name",
+      "where": "https://api.github.com/search/repositories?q=zunka+in:name&per_page=5",
+      "result": "Five personal repositories (Angelicaalonsogar/Zunka, da-vaibhav/zunka, Sammw7/ZUNKA, mlheartbeat007/zunkapp, ice24097086-ctu/Zunkai). None is a design tool or Figma plugin."
+    },
+    {
+      "query": "web search: \"zunka figma plugin\"",
+      "where": "websearch tool / DuckDuckGo HTML",
+      "result": "The search tool returned HTTP 402 and DuckDuckGo served a challenge page; no results could be read. Recorded as unavailable rather than as a clean result."
+    },
+    {
+      "query": "npm + GitHub checks for zappy, kivo, movo, pilo, nimo",
+      "where": "npm registry and GitHub API",
+      "result": "All returned unrelated existing packages or repositories; those candidates were rejected."
+    }
+  ]
+}

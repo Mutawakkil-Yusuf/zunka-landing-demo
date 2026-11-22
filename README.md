@@ -30,7 +30,7 @@ No build step. `index.html` can also be opened through any static server.
 | `mockup-motion.js` | Pausable loops for the product window and four feature mocks |
 | `assets/hero-3d-still.svg` | The still behind the CSS 3D hero card |
 | `assets/` | The design-taste-frontend kit (system, layout, motion, backgrounds, moments) |
-| `favicon.svg`, `share.jpg` | Tab icon and Open Graph card |
+| `favicon.svg`, `og-card.png`, `og-card.html` | Tab icon, 1200×630 OG card and its source |
 | `copy.md`, `names.json` | Copy plan and brand-name search |
 | `responsive-check.mjs` | Playwright sweep across 14 viewports |
 | `animation-check.mjs` | Playwright check of hero reveal, eye scan, mascot tap, reduced motion |
@@ -63,6 +63,8 @@ stale eye engine.
   briefly on press. No WebGL context, so it is reliable on mobile.
 - **Living mocks:** the product window and four feature panels run slow transform-only loops while
   on screen, each with its own pause control.
+- **Desktop layout:** the feature grid is a compact 2×2 on one screen, and the steps section renders
+  its content at all times (no scroll-hidden moment). OG metadata points to `og-card.png`.
 - **Links:** all CTAs are placeholder anchors into real page sections. The form uses a
   `hello@zunka.example` mailto stand-in until a real endpoint is supplied.
 

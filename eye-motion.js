@@ -1,6 +1,11 @@
 /* Zunka eyes + companion. One loop, transform-only, no dependencies. */
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const errors = [];
+  addEventListener('error', (e) => errors.push(String(e.message || e).slice(0, 60)));
+  let frames = 0;
+  let revealed = false;
+  document.addEventListener('zk:revealed', () => { revealed = true; });
 
   if (new URLSearchParams(location.search).has('debug')) {
     const panel = document.createElement('div');
@@ -13,7 +18,11 @@
         'mascot: ' + (document.querySelector('.zk-mascot') ? getComputedStyle(document.querySelector('.zk-mascot')).display : 'none'),
         'eye-x: ' + (eye?.style.getPropertyValue('--eye-x') || 'unset'),
         'word: ' + (document.querySelector('.zk-typed__word')?.textContent || 'none'),
-        'gsap: ' + (window.gsap ? 'yes' : 'no')
+        'gsap: ' + (window.gsap ? 'yes' : 'no'),
+        'raf: ' + (typeof requestAnimationFrame),
+        'frames: ' + frames,
+        'revealed: ' + revealed,
+        'error: ' + (errors[0] || 'none')
       ].join('\n');
     };
     refresh();
@@ -56,6 +65,7 @@
   };
 
   const frame = () => {
+    frames += 1;
     curX += (targetX - curX) * .12;
     curY += (targetY - curY) * .12;
     scanX += (scanTargetX - scanX) * .16;
@@ -63,7 +73,8 @@
     paint();
     requestAnimationFrame(frame);
   };
-  requestAnimationFrame(frame);
+  if (typeof requestAnimationFrame === 'function') requestAnimationFrame(frame);
+  else setInterval(frame, 16);
 
   const point = (x, y) => {
     targetX = clamp((x / innerWidth - .5) * 2, -1, 1) * 5;

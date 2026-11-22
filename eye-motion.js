@@ -12,6 +12,7 @@
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
   let targetX = 0, targetY = 0, curX = 0, curY = 0;
+  let typeX = 0, typeY = 0, typeTargetX = 0, typeTargetY = 0, typingActive = false;
   let scanX = 0, scanTargetX = 0, scanDir = 1, scanStep = 0, scanTimer = null, overrideUntil = 0;
   let glance = 0, glanceTarget = 0, spin = 0;
   let scrollTimer = null, blinkTimer = null, speakTimer = null;
@@ -23,8 +24,10 @@
       h.style.setProperty('--zk-pupil-y', (curY * .55 + glance * .4).toFixed(2) + 'px');
     });
     document.querySelectorAll('.zk-emoji--eyes').forEach((e) => {
-      e.style.setProperty('--eye-x', ((curX + scanX) * .85).toFixed(2) + 'px');
-      e.style.setProperty('--eye-y', (curY * .7 + glance * .5).toFixed(2) + 'px');
+      // While a word is typing, the caret wins and pointer influence is dialled back.
+      const pointer = curX * (typingActive ? .35 : .85);
+      e.style.setProperty('--eye-x', (pointer + scanX * .85 + typeX).toFixed(2) + 'px');
+      e.style.setProperty('--eye-y', (curY * .7 + glance * .5 + typeY).toFixed(2) + 'px');
     });
     document.querySelectorAll('.zk-mascot__pupil').forEach((p, i) => {
       const rest = i ? -1.4 : 1.4;
@@ -41,6 +44,8 @@
   const frame = () => {
     curX += (targetX - curX) * .12;
     curY += (targetY - curY) * .12;
+    typeX += (typeTargetX - typeX) * .16;
+    typeY += (typeTargetY - typeY) * .16;
     scanX += (scanTargetX - scanX) * .16;
     glance += (glanceTarget - glance) * .15;
     paint();
@@ -81,13 +86,26 @@
   const nextScan = () => {
     clearTimeout(scanTimer);
     scanTimer = setTimeout(() => {
-      if (Date.now() < overrideUntil) { nextScan(); return; }
+      if (typingActive || Date.now() < overrideUntil) { nextScan(); return; }
       const delay = scanSteps[scanStep % scanSteps.length]();
       scanStep += 1;
       scanTimer = setTimeout(nextScan, delay);
     }, 180);
   };
   setTimeout(nextScan, 900);
+
+  // Watch the rotating headline word: pupils sweep with the caret as letters
+  // appear, rest at the end of the word, then follow it back as the word erases.
+  // The idle gap between words hands control back to the autonomous scan above.
+  document.addEventListener('zk:typing', (event) => {
+    const { phase, progress } = event.detail || {};
+    typingActive = phase !== 'idle';
+    if (!typingActive) { typeTargetX = 0; typeTargetY = 0; return; }
+    const p = clamp(Number(progress) || 0, 0, 1);
+    typeTargetX = -2 + p * 10;
+    typeTargetY = 3 + Math.sin(p * Math.PI) * 1.5;
+    scanTargetX = 0;
+  });
 
   const bounce = () => {
     const companion = document.querySelector('.zk-mascot');

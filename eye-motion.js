@@ -22,7 +22,7 @@
       h.style.setProperty('--zk-pupil-y', (curY * .55 + glance * .4).toFixed(2) + 'px');
     });
     headlineEyes.forEach((e) => {
-      e.style.setProperty('--eye-x', ((curX + scanX) * .7).toFixed(2) + 'px');
+      e.style.setProperty('--eye-x', ((curX + scanX) * .85).toFixed(2) + 'px');
       e.style.setProperty('--eye-y', (curY * .7 + glance * .5).toFixed(2) + 'px');
     });
     mascotPupils.forEach((p, i) => {
@@ -74,8 +74,8 @@
 
   // The headline eye also lives on its own: a quick left/right scan about every two seconds.
   const scanSteps = [
-    () => { scanTargetX = scanDir * 3.2; return 420; },
-    () => { blink(); scanTargetX = -scanDir * 3.2; return 420; },
+    () => { scanTargetX = scanDir * 4; return 420; },
+    () => { blink(); scanTargetX = -scanDir * 4; return 420; },
     () => { scanTargetX = 0; scanDir *= -1; return 900 + Math.random() * 300; }
   ];
   const nextScan = () => {

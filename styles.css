@@ -44,7 +44,10 @@ html, body, a, button, input, [role="button"] { -webkit-tap-highlight-color: tra
   background: currentColor; vertical-align: -.06em;
   animation: zk-caret 1100ms steps(1) infinite;
 }
-@media (max-width: 639px) { .zk-line:last-child { font-size: .82em; } }
+@media (max-width: 639px) {
+  .zk-line:last-child { font-size: .82em; }
+  .zk-emoji--eyes { width: 1.32em; height: .7em; }
+}
 @media (prefers-reduced-motion: reduce) { .zk-typed__caret { animation: none; } }
 .zk-emoji { display: inline-block; vertical-align: .06em; margin-inline: .06em; background-repeat: no-repeat; background-position: center; background-size: contain; }
 /* Two layers: the white eyes stay put, the pupil layer shifts with --eye-x/y. */
@@ -255,6 +258,7 @@ footer.closing .close__word { font-size: clamp(52px, 10vw, 160px); line-height: 
 }
 
 @media (max-width: 767px) {
+  #features { --h: 2; }
   .zk-band__row { flex-wrap: wrap; }
   .zk-tiles { margin-left: auto; }
   .zk-step__ui { height: 72px; }
